@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Person</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .submit-btn, .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .back-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+        .error {color:red}
+    </style>
+</head>
+<body>
+
+<h2>Save Person Information</h2>
+<form action="#" th:action="@{/person/save}" th:object="${person}" method="POST">
+
+    <input type="hidden" th:field="*{id}">
+
+    <label for="name"></label><input type="text" id="name" th:field="*{name}" placeholder="First name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+
+    <label for="lastName"></label><input type="text" id="lastName" th:field="*{lastName}" placeholder="Last name">
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+
+    <label for="age"></label><input type="text" id="age" th:field="*{age}" placeholder="Age">
+    <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error"></span>
+
+    <label for="email"></label><input type="text" id="email" th:field="*{account.email}" placeholder="Email">
+    <span th:if="${#fields.hasErrors('account.email')}" th:errors="*{account.email}" class="error"></span>
+
+    <label for="username"></label><input type="text" id="username" th:field="*{account.username}" placeholder="Username">
+    <span th:if="${#fields.hasErrors('account.username')}" th:errors="*{account.username}" class="error"></span>
+
+    <label for="password"></label><input type="text" id="password" th:field="*{account.password}" placeholder="Password">
+    <span th:if="${#fields.hasErrors('account.password')}" th:errors="*{account.password}" class="error"></span>
+
+    <label for="degree">Role</label>
+    <select id="degree" th:field="*{account.role}">
+        <option value="" disabled selected>Select Role</option>
+        <option value="USER">User</option>
+        <option value="WORKER">Worker</option>
+    </select>
+    <span th:if="${#fields.hasErrors('account.role')}" th:errors="*{account.role}" class="error"></span>
+
+
+    <div class="button-group">
+        <button type="submit" class="submit-btn">Save</button>
+        <a th:href="@{/person/list}" class="back-btn">Back to List</a>
+    </div>
+</form>
+
+</body>
+</html>
